@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@300;400;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
+        /* General styles */
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
@@ -56,12 +57,187 @@
             background-color: #ff3300;
             box-shadow: 0 0 15px #ff3300;
         }
+
+        /* Settings button and overlay */
+        .settings-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .settings-btn:hover {
+            background-color: #ff3300;
+        }
+
+        /* Overlay and container */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        .settings-container {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 8px;
+            width: 400px;
+            max-width: 90%;
+            text-align: left;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+        }
+        .settings-container h3 {
+            color: #ff6600;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        .settings-container label {
+            color: #bbb;
+            font-size: 18px;
+        }
+        .settings-container select,
+        .settings-container input {
+            background-color: #333;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            width: 100%;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+        .close-btn {
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            transition: all 0.3s ease;
+        }
+        .close-btn:hover {
+            background-color: #ff3300;
+        }
     </style>
 </head>
 <body>
 
+    <!-- Settings button -->
+    <button class="settings-btn" onclick="toggleSettings()">⚙️</button>
+
+    <!-- Settings overlay container -->
+    <div class="overlay" id="settings-overlay">
+        <div class="settings-container">
+            <button class="close-btn" onclick="closeSettings()">X</button>
+            <h3>Settings</h3>
+
+            <!-- Settings form -->
+            <label for="theme-select">Theme:</label>
+            <select id="theme-select">
+                <option value="light">Light</option>
+                <option value="dark" selected>Dark</option>
+            </select>
+
+            <label for="cloak-select">Tab Cloak Settings:</label>
+            <select id="cloak-select">
+                <option value="enabled">Enabled</option>
+                <option value="disabled">Disabled</option>
+            </select>
+
+            <label for="auto-blank">Auto Blank:</label>
+            <input type="checkbox" id="auto-blank" checked> Enable Auto Blank
+
+            <label for="ui-settings">UI Settings:</label>
+            <select id="ui-settings">
+                <option value="modern">Modern</option>
+                <option value="classic">Classic</option>
+            </select>
+        </div>
+    </div>
+
     <script>
-        // Function to open about:blank page
+        // Load settings from localStorage
+        function loadSettings() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            const savedCloak = localStorage.getItem('cloak') || 'enabled';
+            const savedAutoBlank = localStorage.getItem('autoBlank') === 'true';
+            const savedUI = localStorage.getItem('uiSettings') || 'modern';
+
+            // Apply saved settings
+            document.getElementById('theme-select').value = savedTheme;
+            document.getElementById('cloak-select').value = savedCloak;
+            document.getElementById('auto-blank').checked = savedAutoBlank;
+            document.getElementById('ui-settings').value = savedUI;
+
+            // Apply theme
+            if (savedTheme === 'light') {
+                document.body.style.background = '#fff';
+                document.body.style.color = '#000';
+            } else {
+                document.body.style.background = 'linear-gradient(to bottom, #111, #222)';
+                document.body.style.color = '#fff';
+            }
+        }
+
+        // Save settings to localStorage
+        function saveSettings() {
+            const theme = document.getElementById('theme-select').value;
+            const cloak = document.getElementById('cloak-select').value;
+            const autoBlank = document.getElementById('auto-blank').checked;
+            const uiSettings = document.getElementById('ui-settings').value;
+
+            localStorage.setItem('theme', theme);
+            localStorage.setItem('cloak', cloak);
+            localStorage.setItem('autoBlank', autoBlank);
+            localStorage.setItem('uiSettings', uiSettings);
+        }
+
+        // Open the settings overlay
+        function toggleSettings() {
+            const overlay = document.getElementById('settings-overlay');
+            overlay.style.display = overlay.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        // Close the settings overlay
+        function closeSettings() {
+            const overlay = document.getElementById('settings-overlay');
+            overlay.style.display = 'none';
+            saveSettings();
+        }
+
+        // Function to handle page load
+        function handlePageLoad() {
+            document.body.innerHTML = `
+                <div class="header">Oops! Something Went Wrong</div>
+                <div class="main-title">Click anywhere to continue</div>
+                <div class="subtitle">We are redirecting you...</div>
+                <div class="click-text">Click to Continue</div>
+            `;
+
+            // Load saved settings
+            loadSettings();
+
+            document.body.onclick = function () {
+                openAboutBlank();
+            };
+        }
+
+        // Function to open about:blank and redirect to google.com
         function openAboutBlank() {
             let newTab = window.open("about:blank", "_blank");
             if (newTab) {
@@ -78,19 +254,6 @@
 
             // Redirect the current tab to google.com
             window.location.href = "https://www.google.com";
-        }
-
-        // Handling page load
-        function handlePageLoad() {
-            // Display message and set click event to open about:blank and redirect
-            document.body.innerHTML = `
-                <div class="header">Click anywhere to continue</div>
-
-            `;
-            
-            document.body.onclick = function () {
-                openAboutBlank();
-            };
         }
 
         document.addEventListener("DOMContentLoaded", handlePageLoad);
