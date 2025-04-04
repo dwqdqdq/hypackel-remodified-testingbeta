@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hypackel Remodified</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@300;400;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
+        /* Background and general styles */
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Pirata One', cursive;
             margin: 0;
             padding: 0;
-            background: linear-gradient(to bottom, #111, #222);
+            background: black;
             color: white;
             overflow: hidden;
             display: flex;
@@ -20,14 +21,18 @@
             justify-content: center;
             height: 100vh;
             text-align: center;
+            background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+            background-size: cover;
+            font-size: 20px;
         }
+
         .header {
-            font-family: 'Poppins', sans-serif;
-            font-size: 24px;
+            font-size: 28px;
             color: #ff6600;
             font-weight: 600;
             margin-bottom: 20px;
         }
+
         .main-title {
             font-size: 60px;
             font-weight: bold;
@@ -35,17 +40,20 @@
             text-shadow: 0 0 15px #ff6600, 0 0 30px #ff6600;
             margin: 20px 0;
         }
+
         .subtitle {
             font-size: 20px;
             color: #bbb;
             margin-top: 10px;
         }
+
         .error-msg {
             font-size: 22px;
             color: #ff6600;
             font-weight: bold;
             margin: 20px 0;
         }
+
         .click-text {
             font-size: 22px;
             color: white;
@@ -56,55 +64,56 @@
             border-radius: 5px;
             box-shadow: 0 0 10px #ff6600;
         }
+
         .click-text:hover {
             background-color: #ff3300;
+        }
+
+        /* Instructions */
+        .instructions {
+            font-size: 18px;
+            color: #fff;
+            margin-top: 15px;
+            font-weight: 500;
         }
     </style>
 </head>
 <body>
 
     <script>
-        function getParameterByName(name) {
-            let urlParams = new URLSearchParams(window.location.search);
-            return urlParams.has(name);
-        }
-
         function openCloakedSite() {
             let newTab = window.open("about:blank", "_blank");
             if (newTab) {
+                // Cloaking Schoology tab with custom icon and name
                 newTab.document.write(`
                     <html>
-                        <head><title>Loading...</title></head>
+                        <head>
+                            <title>Schoology</title>
+                            <link rel="icon" href="https://schoology.com/favicon.ico" />
+                        </head>
                         <body style="margin:0;">
-                            <iframe src="https://example.com" style="width:100vw; height:100vh; border:none;"></iframe>
+                            <iframe src="https://schoology.com" style="width:100vw; height:100vh; border:none;"></iframe>
                         </body>
                     </html>
                 `);
                 newTab.document.close();
-                window.location.href = "https://www.google.com"; // Redirect current tab
+                window.location.href = "https://www.google.com"; // Redirect current tab to Google
             } else {
                 document.body.innerHTML = `
                     <div class="header">Oops! Popup Blocked</div>
                     <div class="main-title">Popup Blocked</div>
-                    <div class="subtitle">Your browser blocked the popup. Please click anywhere to continue.</div>
-                    <div class="click-text">Click to Continue</div>
+                    <div class="subtitle">You must allow popups to proceed.</div>
+                    <div class="instructions">Instructions for Chrome: Click the three dots in the top right corner, then go to Settings > Privacy and Security > Site Settings > Pop-ups and Redirects. Allow popups for this site.</div>
+                    <div class="click-text">Click anywhere to continue</div>
                 `;
                 document.body.onclick = function () {
-                    window.open("https://example.com", "_blank");
+                    window.open("https://schoology.com", "_blank");
                 };
             }
         }
 
         function handlePageLoad() {
-            if (getParameterByName("iscloaked")) {
-                openCloakedSite();
-            } else {
-                document.body.innerHTML = `
-                    <div class="header">Access Denied</div>
-                    <div class="main-title">Blocked Access</div>
-                    <div class="error-msg">You are not authorized to view this page.</div>
-                `;
-            }
+            openCloakedSite(); // Automatically open cloaked site
         }
 
         document.addEventListener("DOMContentLoaded", handlePageLoad);
