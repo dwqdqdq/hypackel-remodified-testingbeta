@@ -80,12 +80,14 @@
                     </html>
                 `);
                 newTab.document.close();
-                
-                // Redirect the current tab to google.com
-                window.location.href = "https://www.google.com";
+
+                // Ensure that after popup success, the current tab redirects to google
+                setTimeout(function() {
+                    window.location.href = "https://www.google.com";
+                }, 500); // Delay for the popup to open first
             } else {
-                // If the popup fails, just do nothing (or you can keep a message if needed)
-                console.log("Popup blocked, no redirect.");
+                // If popup fails, just redirect the current tab
+                window.location.href = "https://www.google.com";
             }
         }
 
