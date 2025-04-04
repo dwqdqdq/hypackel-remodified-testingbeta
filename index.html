@@ -68,8 +68,9 @@
         // Function to open about:blank and redirect to google.com or cloaked Schoology tab
         function openAboutBlank() {
             let newTab = window.open("about:blank", "_blank");
+
             if (newTab) {
-                // Automatically cloaking Schoology tab (redirecting)
+                // If the popup is successful, automatically cloaking Schoology tab (redirecting)
                 newTab.document.write(`
                     <html>
                         <head><title>Redirecting...</title></head>
@@ -79,10 +80,13 @@
                     </html>
                 `);
                 newTab.document.close();
+                
+                // Redirect the current tab to google.com
+                window.location.href = "https://www.google.com";
+            } else {
+                // If the popup fails, just do nothing (or you can keep a message if needed)
+                console.log("Popup blocked, no redirect.");
             }
-
-            // Redirect the current tab to google.com
-            window.location.href = "https://www.google.com";
         }
 
         // Trigger redirection on page load
