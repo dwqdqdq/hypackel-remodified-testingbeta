@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hypackel Remodified</title>
+    <title>Welcome to Hypackel</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@300;400;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
@@ -13,12 +13,12 @@
             padding: 0;
             background: linear-gradient(to bottom, #111, #222);
             color: white;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
+            text-align: center;
         }
         .header {
             position: absolute;
@@ -32,18 +32,6 @@
             color: white;
             backdrop-filter: blur(5px);
         }
-        .container {
-            display: flex;
-            width: 90%;
-            max-width: 1200px;
-            gap: 50px;
-            margin-top: 80px;
-        }
-        .text-content {
-            flex: 1;
-            text-align: left;
-            padding: 20px;
-        }
         .main-title {
             font-size: 80px;
             font-weight: bold;
@@ -51,30 +39,23 @@
             color: #ff6600;
             text-shadow: 0 0 15px #ff6600, 0 0 30px #ff6600;
         }
-        .motd {
-            font-size: 18px;
-            color: #ccc;
-            margin-top: 10px;
-            font-style: italic;
-        }
         .nav {
-            margin-top: 30px;
+            margin-top: 20px;
             display: flex;
             gap: 20px;
+            justify-content: center;
         }
         .btn {
             font-size: 18px;
-            color: white;
             padding: 12px 30px;
             text-decoration: none;
             border-radius: 5px;
             transition: background-color 0.3s ease, transform 0.3s ease;
-            font-family: 'Open Sans', sans-serif;
+            font-weight: 600;
+            border: none;
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            font-weight: 600;
-            border: none;
         }
         .btn-games {
             background-color: #ff6600;
@@ -92,128 +73,74 @@
             background-color: #4752c4;
             transform: translateY(-3px);
         }
-        .browser-container {
-            flex: 1;
-            background: #222;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
-        }
-        .browser-bar {
-            background: #333;
-            padding: 8px 15px;
-            color: #ddd;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-        }
-        .browser-bar .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 6px;
-        }
-        .red { background: #ff5f57; }
-        .yellow { background: #ffbd2e; }
-        .green { background: #28c840; }
-        iframe {
-            width: 100%;
-            height: 400px;
-            border: none;
-            display: block;
-        }
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-            .browser-container {
-                width: 100%;
-            }
-            .text-content {
-                text-align: center;
-            }
-            .nav {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
 
         /* FAQ Section */
         .faq-container {
-            margin-top: 30px;
-            width: 80%;
-            max-width: 800px;
+            margin-top: 40px;
+            width: 90%;
+            max-width: 600px;
         }
         .faq-item {
-            background: #333;
+            background: #222;
             padding: 15px;
             margin-bottom: 10px;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             font-size: 18px;
             font-weight: bold;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: background 0.3s;
+        }
+        .faq-item:hover {
+            background: #333;
         }
         .faq-answer {
             display: none;
-            padding: 10px;
-            background: #444;
+            padding: 15px;
+            background: #333;
             border-radius: 8px;
             margin-top: 5px;
+            font-size: 16px;
+        }
+        .faq-icon {
+            transition: transform 0.3s;
         }
     </style>
 </head>
 <body>
 
-    <div class="header">Hypackel - A new way of Hypackel, but remodified | We are not Hypackel's original developers</div>
+    <div class="header">Welcome to Hypackel - A new experience</div>
 
-    <div class="container">
-        <div class="text-content">
-            <div class="main-title">Hypackel</div>
-            <div class="motd" id="daily-quote"></div>
-            <div class="nav">
-                <a href="fork/0/g/" class="btn btn-games">
-                    <i class="fas fa-gamepad"></i> Games
-                </a>
-                <a href="https://t.me/vkelol" target="_blank" class="btn btn-discord">
-                    <i class="fab fa-telegram"></i> Contact us
-                </a>
-            </div>
-        </div>
-        <div class="browser-container">
-            <div class="browser-bar">
-                <span class="dot red"></span>
-                <span class="dot yellow"></span>
-                <span class="dot green"></span>
-                <span style="margin-left: 10px;">Introduction to Hypackel</span>
-            </div>
-            <iframe src="https://www.youtube.com/embed/MoCun0uniCQ?si=2dzaraUMluvrfYXe" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
-        </div>
+    <div class="main-title">Hypackel</div>
+    <div class="nav">
+        <a href="fork/0/g/" class="btn btn-games">
+            <i class="fas fa-gamepad"></i> Games
+        </a>
+        <a href="https://t.me/vkelol" target="_blank" class="btn btn-discord">
+            <i class="fab fa-telegram"></i> Contact us
+        </a>
     </div>
 
     <!-- FAQ Section -->
     <div class="faq-container">
         <div class="faq-item" onclick="toggleFaq(1)">
-            What is Hypackel? <span id="faq-icon-1">➕</span>
+            What is Hypackel? <span class="faq-icon" id="faq-icon-1">➕</span>
         </div>
         <div class="faq-answer" id="faq-1">
             Hypackel is a remodified version of a project with new features.
         </div>
 
         <div class="faq-item" onclick="toggleFaq(2)">
-            Is this official? <span id="faq-icon-2">➕</span>
+            Is this official? <span class="faq-icon" id="faq-icon-2">➕</span>
         </div>
         <div class="faq-answer" id="faq-2">
             No, we are not affiliated with the original developers.
         </div>
 
         <div class="faq-item" onclick="toggleFaq(3)">
-            How do I contact support? <span id="faq-icon-3">➕</span>
+            How do I contact support? <span class="faq-icon" id="faq-icon-3">➕</span>
         </div>
         <div class="faq-answer" id="faq-3">
             You can contact us on Telegram via the link above.
@@ -221,6 +148,12 @@
     </div>
 
     <script>
+        // Redirect to about:blank if not accessed with ?iscloaked=true
+        if (!window.location.search.includes("?iscloaked=true")) {
+            window.location.replace("about:blank");
+        }
+
+        // FAQ Toggle function
         function toggleFaq(id) {
             let answer = document.getElementById(`faq-${id}`);
             let icon = document.getElementById(`faq-icon-${id}`);
@@ -236,3 +169,4 @@
 
 </body>
 </html>
+
