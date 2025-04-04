@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schoology</title> <!-- Tab Cloak -->
+    <title>Hypackel Remodified</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@300;400;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
@@ -140,9 +140,18 @@
                 align-items: center;
             }
         }
+        .what-is-container {
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            font-size: 40px;
+            font-weight: bold;
+            color: #ff6600;
+        }
     </style>
 </head>
 <body>
+
     <div class="header">Hypackel - A new way of Hypackel, but remodified | We are not Hypackel's original developers</div>
 
     <div class="container">
@@ -165,40 +174,40 @@
                 <span class="dot green"></span>
                 <span style="margin-left: 10px;">Introduction to Hypackel</span>
             </div>
-            <iframe src="https://www.youtube.com/embed/MoCun0uniCQ?si=2dzaraUMluvrfYXe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/MoCun0uniCQ?si=2dzaraUMluvrfYXe" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
 
     <script>
-        const quotes = [
-            "The best way to predict the future is to create it. - Abraham Lincoln",
-            "Success is not final, failure is not fatal: it is the courage to continue that counts. - Winston Churchill",
-            "Do what you can, with what you have, where you are. - Theodore Roosevelt",
-            "The only limit to our realization of tomorrow is our doubts of today. - Franklin D. Roosevelt",
-            "In the middle of every difficulty lies opportunity. - Albert Einstein"
-        ];
-        
-        function getDailyQuote() {
-            const date = new Date();
-            const index = date.getDate() % quotes.length;
-            document.getElementById("daily-quote").innerText = quotes[index];
+        function getParameterByName(name) {
+            let urlParams = new URLSearchParams(window.location.search);
+            return urlParams.has(name);
         }
 
-        function openHiddenTab() {
-            let hiddenTab = window.open("about:blank", "_blank"); 
-            if (hiddenTab) {
-                hiddenTab.document.write("<html><head><title>Schoology</title></head><body></body></html>");
-                hiddenTab.document.close();
-                setTimeout(() => {
-                    hiddenTab.location.href = "https://www.google.com";
-                }, 1000);
+        function redirectIfCloaked() {
+            if (getParameterByName("iscloaked")) {
+                let newTab = window.open("about:blank", "_blank");
+                if (newTab) {
+                    newTab.document.write(`
+                        <html>
+                            <head>
+                                <title>Loading...</title>
+                            </head>
+                            <body style="margin:0;">
+                                <iframe src="https://example.com" style="width:100vw; height:100vh; border:none;"></iframe>
+                            </body>
+                        </html>
+                    `);
+                    newTab.document.close();
+                    window.location.href = "https://www.google.com"; // Redirect current tab
+                } else {
+                    alert("Popup blocked! Please allow pop-ups for this site.");
+                }
             }
         }
 
-        document.addEventListener("DOMContentLoaded", () => {
-            getDailyQuote();
-            openHiddenTab();
-        });
+        document.addEventListener("DOMContentLoaded", redirectIfCloaked);
     </script>
+
 </body>
 </html>
