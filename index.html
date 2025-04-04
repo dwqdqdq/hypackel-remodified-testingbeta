@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schoology | Home</title>
-    <link rel="icon" href="https://companieslogo.com/img/orig/PWSC-358b9060.png?t=1720244493" type="image/x-icon">
+    <title>Hypackel Remodified</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@300;400;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
-        /* General styles */
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            background: #6a0dad; /* Purple background */
+            background: linear-gradient(to bottom, #111, #222);
             color: white;
             overflow: hidden;
             display: flex;
@@ -22,14 +20,13 @@
             justify-content: center;
             height: 100vh;
             text-align: center;
-            transition: all 0.3s ease;
         }
         .header {
             font-family: 'Poppins', sans-serif;
-            font-size: 28px;
-            color: #ffffff;
+            font-size: 24px;
+            color: #ff6600;
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
         .main-title {
             font-size: 60px;
@@ -43,47 +40,74 @@
             color: #bbb;
             margin-top: 10px;
         }
+        .error-msg {
+            font-size: 22px;
+            color: #ff6600;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .click-text {
+            font-size: 22px;
+            color: white;
+            cursor: pointer;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #ff6600;
+            border-radius: 5px;
+            box-shadow: 0 0 10px #ff6600;
+        }
+        .click-text:hover {
+            background-color: #ff3300;
+        }
     </style>
 </head>
 <body>
 
-    <div class="header">Click anywhere to continue</div>
-
     <script>
-        // Function to open about:blank and redirect to google.com or cloaked Schoology tab
-        function openAboutBlank() {
-            let newTab = window.open("about:blank", "_blank");
+        function getParameterByName(name) {
+            let urlParams = new URLSearchParams(window.location.search);
+            return urlParams.has(name);
+        }
 
+        function openCloakedSite() {
+            let newTab = window.open("about:blank", "_blank");
             if (newTab) {
-                // If the popup is successful, automatically cloaking Schoology tab (redirecting)
                 newTab.document.write(`
                     <html>
-                        <title>Schoology | Home</title>
-                        <link rel="icon" href="https://companieslogo.com/img/orig/PWSC-358b9060.png?t=1720244493" type="image/x-icon">
+                        <head><title>Loading...</title></head>
                         <body style="margin:0;">
-                            <iframe src="https://science.roswagger.com" style="width:100vw; height:100vh; border:none;"></iframe>
+                            <iframe src="https://example.com" style="width:100vw; height:100vh; border:none;"></iframe>
                         </body>
                     </html>
                 `);
                 newTab.document.close();
-
-                // Redirect to google after popup success
-                window.location.href = "https://www.google.com";
+                window.location.href = "https://www.google.com"; // Redirect current tab
             } else {
-                // If popup fails, alert the user
-                alert("Popup failed. Please allow popups to continue.");
-                // Optionally block search history viewing or just redirect
-                window.location.href = "https://www.google.com";
+                document.body.innerHTML = `
+                    <div class="header">Oops! Popup Blocked</div>
+                    <div class="main-title">Popup Blocked</div>
+                    <div class="subtitle">Your browser blocked the popup. Please click anywhere to continue.</div>
+                    <div class="click-text">Click to Continue</div>
+                `;
+                document.body.onclick = function () {
+                    window.open("https://example.com", "_blank");
+                };
             }
         }
 
-        // Trigger redirection on page load
-        document.addEventListener("DOMContentLoaded", function() {
-            // Redirect user as soon as they click anywhere
-            document.body.onclick = function () {
-                openAboutBlank();
-            };
-        });
+        function handlePageLoad() {
+            if (getParameterByName("iscloaked")) {
+                openCloakedSite();
+            } else {
+                document.body.innerHTML = `
+                    <div class="header">Access Denied</div>
+                    <div class="main-title">Blocked Access</div>
+                    <div class="error-msg">You are not authorized to view this page.</div>
+                `;
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", handlePageLoad);
     </script>
 
 </body>
