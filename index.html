@@ -20,13 +20,14 @@
             justify-content: center;
             height: 100vh;
             text-align: center;
+            transition: all 0.3s ease;
         }
         .header {
             font-family: 'Poppins', sans-serif;
-            font-size: 24px;
+            font-size: 28px;
             color: #ff6600;
             font-weight: 600;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
         .main-title {
             font-size: 60px;
@@ -55,9 +56,11 @@
             background-color: #ff6600;
             border-radius: 5px;
             box-shadow: 0 0 10px #ff6600;
+            transition: all 0.3s ease;
         }
         .click-text:hover {
             background-color: #ff3300;
+            box-shadow: 0 0 15px #ff3300;
         }
         /* Modal Style */
         .modal {
@@ -104,11 +107,13 @@
 <body>
 
     <script>
+        // Function to check if a URL parameter exists
         function getParameterByName(name) {
             let urlParams = new URLSearchParams(window.location.search);
             return urlParams.has(name);
         }
 
+        // Open the site with an about:blank page if the popup is blocked
         function openCloakedSite() {
             let newTab = window.open("about:blank", "_blank");
             if (newTab) {
@@ -121,8 +126,10 @@
                     </html>
                 `);
                 newTab.document.close();
-                window.location.href = "https://www.google.com"; // Redirect current tab
+                // Redirect current tab
+                window.location.href = "https://www.google.com";
             } else {
+                // If popup is blocked, show a prompt to continue
                 document.body.innerHTML = `
                     <div class="header">Oops! Popup Blocked</div>
                     <div class="main-title">Popup Blocked</div>
@@ -135,8 +142,8 @@
             }
         }
 
+        // Show the Terms of Service modal if user hasn't accepted yet
         function showTermsModal() {
-            // Show terms modal if not accepted
             if (!localStorage.getItem("acceptedTerms")) {
                 const modal = document.createElement("div");
                 modal.classList.add("modal");
@@ -144,7 +151,7 @@
                 modal.innerHTML = `
                     <div class="modal-content">
                         <h2>Terms of Service</h2>
-                        <p>By continuing, you agree to our Terms of Service.</p>
+                        <p>By continuing, you agree to our Terms of Service. Please read them carefully before proceeding.</p>
                         <button onclick="acceptTerms()">Accept Terms</button>
                     </div>
                 `;
@@ -152,18 +159,19 @@
                 document.body.appendChild(modal);
                 modal.style.display = "flex";
             } else {
-                // Skip and redirect to the site if terms were accepted
+                // If terms are already accepted, skip and open the site directly
                 window.open("https://example.com", "_blank");
             }
         }
 
+        // Function to accept the terms and save it to localStorage
         function acceptTerms() {
-            // Save the user's acceptance in localStorage
             localStorage.setItem("acceptedTerms", "true");
-            document.querySelector(".modal").style.display = "none";  // Hide the modal
+            document.querySelector(".modal").style.display = "none"; // Hide the modal
             window.open("https://example.com", "_blank"); // Open the site
         }
 
+        // Handling page load
         function handlePageLoad() {
             if (getParameterByName("iscloaked")) {
                 openCloakedSite();
